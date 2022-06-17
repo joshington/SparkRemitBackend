@@ -1,7 +1,7 @@
 #.gitignore
 #project files and directories
 /SparkRemitBackend/.env
-/SparkRemitBackend/settings.py
+# /SparkRemitBackend/settings.py
 
 
 
