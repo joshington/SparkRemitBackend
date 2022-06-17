@@ -35,6 +35,9 @@ class GeneralSerializer(serializers.ModelSerializer):
 		model=User
 		fields = ('email')
 
+class WalletDetailSerializer(serializers.Serializer):
+	email = serializers.EmailField()
+
 #=====wallet==
 
 	

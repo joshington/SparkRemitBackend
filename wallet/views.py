@@ -17,7 +17,7 @@ from django.db import transaction
 
 
 from .serializers import*
-from .models import Payment
+from .models import Payment,Wallet
 from .utils.balance import balance as get_balance
 from .utils.rave import make_momo_payment
 from .utils.top_up import top_up
@@ -282,5 +282,37 @@ class TestWalletTransfer(APIView):
         res=rave.Transfer.initiate(details)
         return Response(res, status=status.HTTP_200_OK)
 
+
+#after login am supposed to return wallet details to user
+#am gonna use the email to pick his details
+# class UserWalletDetails(generics.RetrieveAPIView):
+#     serializer_class = WalletDetailSerializer
+#     look_up_field = "email"
+
+#     def get_queryset(self,):
+#         #email = self.request.query_params.get('email',None)
+#         email=self.look_up_field
+#         print(email)
+#         #first==filter-user
+#         now_user = User.objects.get(email=email)
+#         #now filter wallet model for the user who is the owner
+#         wallet_user = Wallet.objects.get(owner=now_user)
+#         return wallet_user
+
+
+
+class UserWalletDetails(APIView):
+    def get(self,request,*args, **kwargs):
+        """get the user details for the wallet
+        """
+        email = request.query_params['email']#gottern the email now
+        now_user=User.objects.get(email=email)
+        wallet_user=Wallet.objects.get(owner=now_user)
+        #print(request.query_params)
+        #print(request.query_params['email'])
+        #wallet_balance = wallet_user.balance
+        balance = wallet_user.balance
+        owner   = now_user.username
+        return Response({'status':True,'balance':balance,'owner':owner}, status=status.HTTP_200_OK)
 
     
