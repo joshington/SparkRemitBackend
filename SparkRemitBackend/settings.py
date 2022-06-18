@@ -34,7 +34,7 @@ SECRET_KEY=str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sparkbackend.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'drf_yasg'
+    'drf_yasg',
     'authentication',
     'wallet'
   
